@@ -1,9 +1,8 @@
 import discord
 import os
 from discord.ext import commands
-import extensions
 
-client = commands.Bot(command_prefix=".", description="Le fils à Poutine", intents=discord.Intents.all())
+client = commands.Bot(command_prefix=".", description="Le fils a Poutine", intents=discord.Intents.all())
 
 
 @client.event
