@@ -13,10 +13,6 @@ client = commands.Bot(command_prefix=".", description="Le fils a Poutine", inten
 async def on_ready():
     print("On")
 
-@client.event
-async def on_message(ctx):
-    print(f"{ctx.author} {datetime.fromtimestamp(time.time()).strftime('%d/%m/%y %H:%M')} | {ctx.content}")
-
 for file in os.listdir("extensions"):
     if file[-3:] == ".py":
         try:
