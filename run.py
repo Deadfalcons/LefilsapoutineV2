@@ -3,7 +3,7 @@ import os
 from discord.ext import commands
 
 client = commands.Bot(command_prefix=".", description="Le fils a Poutine", intents=discord.Intents.all())
-
+# test comment
 
 @client.event
 async def on_ready():
