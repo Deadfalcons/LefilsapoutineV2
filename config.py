@@ -1,7 +1,7 @@
 import os
 from sys import platform
 if platform == "win32":
-    path = ""
+    path = "TOKEN.txt"
 else:
     path = "/home/pi/LefilsapoutineV2/TOKEN"
 
