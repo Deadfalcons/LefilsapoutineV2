@@ -6,13 +6,6 @@ from sys import platform
 
 server = AternosAPI(HEADER_TOKEN, TOKEN_AT)
 
-if platform == "win32":
-    path = "extensions/aternos/"
-    name_file = "server_status_id.txt"
-else:
-    path = "/home/pi/LefilsapoutineV2/extensions/aternos/"
-    name_file = "server_status_id"
-
 
 class aternos(commands.Cog):
     def __init__(self, client):
@@ -63,9 +56,4 @@ class aternos(commands.Cog):
 
 
 def setup(client):
-    if not os.path.isdir(path):
-        os.mkdir(path)
-    if not os.path.isfile(path + name_file):
-        with open(path + name_file, "w"):
-            pass
     client.add_cog(aternos(client))
