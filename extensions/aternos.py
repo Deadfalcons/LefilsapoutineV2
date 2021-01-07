@@ -1,13 +1,23 @@
-from discord.ext import commands
+import discord
+from discord.ext import commands, tasks
 from aternosapi import AternosAPI
 from config import *
+from sys import platform
 
 server = AternosAPI(HEADER_TOKEN, TOKEN_AT)
+
+if platform == "win32":
+    path = "extensions/aternos/"
+    name_file = "server_status_id.txt"
+else:
+    path = "/home/pi/LefilsapoutineV2/extensions/aternos/"
+    name_file = "server_status_id"
 
 
 class aternos(commands.Cog):
     def __init__(self, client):
         self.client = client
+        self.update_status_message.start()
 
     @commands.command(name="server_start", brief="Start the aternos server")
     async def server_start(self, ctx):
@@ -32,6 +42,30 @@ class aternos(commands.Cog):
     async def server_status(self, ctx):
         await ctx.send(f"The server is {server.GetStatus().lower()}")
 
+    @tasks.loop(seconds=10)
+    async def update_status_message(self):
+        await self.client.wait_until_ready()
+        try:
+            e = discord.Embed(
+                title="Server status",
+                description=server.GetStatus(),
+                color=0x008000
+            )
+            await self.status_message.edit(embed=e, color=0x008000)
+        except:
+            channel = self.client.get_channel(CHANNEL_STATUS)
+            e = discord.Embed(
+                title="Server status",
+                description=server.GetStatus(),
+                color=0x008000
+            )
+            self.status_message = await channel.send(embed=e)
+
 
 def setup(client):
+    if not os.path.isdir(path):
+        os.mkdir(path)
+    if not os.path.isfile(path + name_file):
+        with open(path + name_file, "w"):
+            pass
     client.add_cog(aternos(client))
