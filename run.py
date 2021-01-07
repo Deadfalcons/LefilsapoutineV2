@@ -1,6 +1,10 @@
 import discord
 from discord.ext import commands
-from config import *
+import os
+
+if os.path.isfile("TOKEN.txt"):
+    with open("TOKEN.txt") as file:
+        TOKEN = file.read()
 
 client = commands.Bot(command_prefix=".", description="Le fils a Poutine", intents=discord.Intents.all())
 
