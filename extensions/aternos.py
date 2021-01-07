@@ -29,6 +29,9 @@ class aternos(commands.Cog):
         else:
             await ctx.send("You are not allowed to use this command")
 
+    @commands.command(name="server_status", brief="Get the server status")
+    async def server_status(self, ctx):
+        await ctx.send(f"The server is {server.GetStatus().lower()}")
 
 def setup(client):
     client.add_cog(aternos(client))
