@@ -3,10 +3,10 @@ from sys import platform
 if platform == "win32":
     path = ""
 else:
-    path = "/home/pi/LefilsapoutineV2"
+    path = "/home/pi/LefilsapoutineV2/TOKEN"
 
-if os.path.isfile(path + "TOKEN.txt"):
-    with open(path + "TOKEN.txt") as file:
+if os.path.isfile(path):
+    with open(path) as file:
         TOKEN = file.read()
 # ======== Discord roles ========
 MCMANAGER = 796735962402521139
