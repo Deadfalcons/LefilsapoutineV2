@@ -1,3 +1,8 @@
+import os
+
+if os.path.isfile("TOKEN.txt"):
+    with open("TOKEN.txt") as file:
+        TOKEN = file.read()
 # ======== Discord roles ========
 MCMANAGER = 796735962402521139
 
