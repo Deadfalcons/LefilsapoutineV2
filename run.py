@@ -1,10 +1,6 @@
-import datetime
-
 import discord
-import os
 from discord.ext import commands
-import time
-from datetime import datetime
+from config import *
 
 client = commands.Bot(command_prefix=".", description="Le fils a Poutine", intents=discord.Intents.all())
 
@@ -19,4 +15,4 @@ for file in os.listdir("extensions"):
         except:
             pass
 
-client.run("NjkxNjY4NDMzNTE1MDUzMDc2.XnjUbQ.f_WMQ-Hmj8Ikhtsz53RpQ8iRiH0")
+client.run(TOKEN)
