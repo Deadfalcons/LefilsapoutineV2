@@ -7,7 +7,6 @@ import time
 from datetime import datetime
 
 client = commands.Bot(command_prefix=".", description="Le fils a Poutine", intents=discord.Intents.all())
-# test comment
 
 @client.event
 async def on_ready():
