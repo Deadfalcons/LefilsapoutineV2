@@ -1,3 +1,6 @@
+import time
+from datetime import datetime
+
 import discord
 from discord.ext import commands, tasks
 from aternosapi import AternosAPI
@@ -44,6 +47,7 @@ class aternos(commands.Cog):
                 description=server.GetStatus(),
                 color=0x008000
             )
+            e.set_footer(text="Updated at " + datetime.fromtimestamp(time.time()).strftime('%d/%m/%y %H:%M'))
             await self.status_message.edit(embed=e, color=0x008000)
         except:
             channel = self.client.get_channel(CHANNEL_STATUS)
@@ -52,6 +56,7 @@ class aternos(commands.Cog):
                 description=server.GetStatus(),
                 color=0x008000
             )
+            e.set_footer(text="Updated at " + datetime.fromtimestamp(time.time()).strftime('%d/%m/%y %H:%M'))
             self.status_message = await channel.send(embed=e)
 
 
