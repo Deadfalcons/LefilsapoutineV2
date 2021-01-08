@@ -5,7 +5,6 @@ import discord
 from discord.ext import commands, tasks
 from aternosapi import AternosAPI
 from config import *
-from sys import platform
 
 server = AternosAPI(HEADER_TOKEN, TOKEN_AT)
 
@@ -15,22 +14,14 @@ class aternos(commands.Cog):
         self.client = client
         self.update_status_message.start()
 
-    @commands.command(name="server_start", brief="Start the aternos server")
+    @commands.command(name="server_start", brief="Start the aternos server (not working)")
     async def server_start(self, ctx):
-        if server.GetStatus() == "Offline":
-            server.StartServer()
-            await ctx.send("The server is starting...")
-        else:
-            await ctx.send("The server is already online!")
+        await ctx.send(server.StartServer())
 
-    @commands.command(name="server_stop", brief="Stop the aternos server")
+    @commands.command(name="server_stop", brief="Stop the aternos server (not working)")
     async def server_stop(self, ctx):
         if ctx.guild.get_role(MCMANAGER) in ctx.author.roles:
-            if server.GetStatus() == "Starting ..." or server.GetStatus() == "Online":
-                server.StopServer()
-                await ctx.send("The server is stopping..")
-            else:
-                await ctx.send("The server is already off")
+            await ctx.send(server.StopServer())
         else:
             await ctx.send("You are not allowed to use this command")
 
