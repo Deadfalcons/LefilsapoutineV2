@@ -76,19 +76,19 @@ class rpg(commands.Cog):
         number = random.randint(0, 12)
         if number == 0:
             self.modify_money(ctx.author.id, 50)
-            answer = "That's a very bad work...\nYou win 50$"
+            answer = "That's a very bad work...\nYou won 50$"
         elif 0 < number < 4:
             self.modify_money(ctx.author.id, 100)
-            answer = "That's a bad work...\nYou win 100$"
+            answer = "That's a bad work...\nYou won 100$"
         elif 3 < number < 9:
             self.modify_money(ctx.author.id, 200)
-            answer = "That's a good work!\nYou win 200$"
+            answer = "That's a good work!\nYou won 200$"
         elif 8 < number < 12:
             self.modify_money(ctx.author.id, 300)
-            answer = "That's a very good work!\nYou win 300$"
+            answer = "That's a very good work!\nYou won 300$"
         elif number == 12:
             self.modify_money(ctx.author.id, 500)
-            answer = "That's an excelent work!\nYou win 500$"
+            answer = "That's an excelent work!\nYou won 500$"
         await ctx.send(answer)
 
     @commands.command(name="steal", brief="Steal other people", aliases=["st"])
