@@ -124,16 +124,16 @@ class rpg(commands.Cog):
             answer = f"It's a trap!\nYou lost {int(-bal * portion)}$"
         elif 0 < number < 4:
             portion = 0.1
-            answer = f"You stole a little portion...\nYou won {int(bal * portion)}"
+            answer = f"You stole a little portion...\nYou won {int(bal * portion)}$"
         elif 3 < number < 9:
             portion = 0.2
-            answer = f"You stole a good portion!\nYou won {int(bal * portion)}"
+            answer = f"You stole a good portion!\nYou won {int(bal * portion)}$"
         elif 8 < number < 12:
             portion = 0.3
-            answer = f"You stole a very good portion!\nYou won {int(bal * portion)}"
+            answer = f"You stole a very good portion!\nYou won {int(bal * portion)}$"
         elif number == 12:
             portion = 0.5
-            answer = f"You stole an ENORMOUS portion!\nYou won {int(bal * portion)}"
+            answer = f"You stole an ENORMOUS portion!\nYou won {int(bal * portion)}$"
         is_stole = self.modify_money(user, int(-bal * portion), gotozero=True)
         if is_stole:
             self.modify_money(ctx.author.id, int(bal * portion), gotozero=True)
