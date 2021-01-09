@@ -97,7 +97,7 @@ class rpg(commands.Cog):
         list_lines = []
         stole_c = 0
         steal_c = 0
-        with open(path + "work_cooldown.csv", "r") as file:
+        with open(path + "steal_cooldown.csv", "r") as file:
             for line in file:
                 try :
                     if line.split(",")[0] == str(ctx.author.id):
@@ -114,14 +114,14 @@ class rpg(commands.Cog):
                     pass
         list_lines.append(f"{ctx.author.id},{int(time.time())},{stole_c}\n")
         list_lines.append(f"{user},{steal_c},{int(time.time())}\n")
-        with open(path + "work_cooldown.csv", "w") as file:
+        with open(path + "steal_cooldown.csv", "w") as file:
             file.write("".join(list_lines))
         number = random.randint(0, 12)
         self.search_balance(ctx.author.id)
         bal = self.search_balance(user)
         if number == 0:
             portion = -0.1
-            answer = f"It's a trap!\nYou lost {int(bal * portion)}$"
+            answer = f"It's a trap!\nYou lost {int(-bal * portion)}$"
         elif 0 < number < 4:
             portion = 0.1
             answer = f"You stole a little portion...\nYou won {int(bal * portion)}"
