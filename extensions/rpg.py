@@ -5,6 +5,7 @@ from sys import platform
 import random
 import time
 from utils import id_convert
+from numpy.random import choice
 
 if platform == "win32":
     path = "extensions/rpg/"
@@ -73,23 +74,14 @@ class rpg(commands.Cog):
         list_lines.append(f"{ctx.author.id},{int(time.time())}\n")
         with open(path + "work_cooldown.csv", "w") as file:
             file.write("".join(list_lines))
-        number = random.randint(0, 12)
-        if number == 0:
-            self.modify_money(ctx.author.id, 50)
-            answer = "That's a very bad work...\nYou won 50$"
-        elif 0 < number < 4:
-            self.modify_money(ctx.author.id, 100)
-            answer = "That's a bad work...\nYou won 100$"
-        elif 3 < number < 9:
-            self.modify_money(ctx.author.id, 200)
-            answer = "That's a good work!\nYou won 200$"
-        elif 8 < number < 12:
-            self.modify_money(ctx.author.id, 300)
-            answer = "That's a very good work!\nYou won 300$"
-        elif number == 12:
-            self.modify_money(ctx.author.id, 500)
-            answer = "That's an excelent work!\nYou won 500$"
-        await ctx.send(answer)
+        answer_list = [["That's a very bad work...\nYou won 50$", 50],
+                       ["That's a bad work...\nYou won 100$", 100],
+                       ["That's a good work!\nYou won 200$", 200],
+                       ["That's a very good work!\nYou won 300$", 300],
+                       ["That's an excelent work!\nYou won 500$", 500]]
+        answer = int(choice([x for x in range(5)], 1, p=[0.09, 0.2, 0.5, 0.2, 0.01]))
+        self.modify_money(ctx.author.id, answer_list[answer][1])
+        await ctx.send(answer_list[answer][0])
 
     @commands.command(name="steal", brief="Steal other people", aliases=["st"])
     async def steal(self, ctx, user_id):
@@ -116,28 +108,18 @@ class rpg(commands.Cog):
         list_lines.append(f"{user},{steal_c},{int(time.time())}\n")
         with open(path + "steal_cooldown.csv", "w") as file:
             file.write("".join(list_lines))
-        number = random.randint(0, 12)
         self.search_balance(ctx.author.id)
         bal = self.search_balance(user)
-        if number == 0:
-            portion = -0.1
-            answer = f"It's a trap!\nYou lost {int(-bal * portion)}$"
-        elif 0 < number < 4:
-            portion = 0.1
-            answer = f"You stole a little portion...\nYou won {int(bal * portion)}$"
-        elif 3 < number < 9:
-            portion = 0.2
-            answer = f"You stole a good portion!\nYou won {int(bal * portion)}$"
-        elif 8 < number < 12:
-            portion = 0.3
-            answer = f"You stole a very good portion!\nYou won {int(bal * portion)}$"
-        elif number == 12:
-            portion = 0.5
-            answer = f"You stole an ENORMOUS portion!\nYou won {int(bal * portion)}$"
-        is_stole = self.modify_money(user, int(-bal * portion), gotozero=True)
+        answer_list = [["It's a trap!\nYou won ", int(bal * -0.1)],
+                       ["You stole a little portion...\nYou won ", int(bal * 0.1)],
+                       ["You stole a good portion!\nYou won ", int(bal * 0.2)],
+                       ["You stole a very good portion!\nYou won ", int(bal * 0.3)],
+                       ["You stole an ENORMOUS portion!\nYou won ", int(bal * 0.5)]]
+        answer = int(choice([x for x in range(5)], 1, p=[0.09, 0.2, 0.5, 0.2, 0.01]))
+        is_stole = self.modify_money(user, answer_list[answer][1], gotozero=True)
         if is_stole:
-            self.modify_money(ctx.author.id, int(bal * portion), gotozero=True)
-        await ctx.send(answer)
+            self.modify_money(ctx.author.id, answer_list[answer][1], gotozero=True)
+        await ctx.send(f"{answer_list[answer][0]}{answer_list[answer][1]}$")
 
 
 def setup(client):
