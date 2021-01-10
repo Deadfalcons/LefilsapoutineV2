@@ -123,6 +123,31 @@ class rpg(commands.Cog):
             self.modify_money(ctx.author.id, answer_list[answer][1], gotozero=True)
         await ctx.send(f"{answer_list[answer][0]}{answer_list[answer][1]}$")
 
+    @commands.command(name="baltop", brief="The rank of money")
+    async def baltop(self, ctx):
+        balances = {}
+        with open(path + "balance.csv", "r") as file:
+            for line in file:
+                balances[line.split(",")[0]] = line.split(",")[1]
+        balances_list = []
+        while len(balances) > 0:
+            max_k = random.choice(list(balances.keys()))
+            max_ = int(balances[max_k])
+            for k, v in balances.items():
+                if int(v) > max_:
+                    max_ = int(v)
+                    max_k = k
+            balances_list.append([int(max_k), int(balances[max_k][:-1])])
+            del balances[max_k]
+        balances_list = [balances_list[k: k+10] for k in range(0, len(balances_list), 10)] # Set for paginator in the future
+        displayed_list = [f"{x + 1} {self.client.get_user(balances_list[0][x][0])} : {balances_list[0][x][1]}\n" for x in range(len(balances_list[0]))]
+        e = discord.Embed(
+            title="Baltop",
+            description="".join(displayed_list)
+        )
+        e.set_footer(text="Made by </Deadfalcon>")
+        await ctx.send(embed=e)
+
 
 def setup(client):
     if not os.path.isdir(path):
