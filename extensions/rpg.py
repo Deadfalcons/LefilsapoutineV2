@@ -86,6 +86,8 @@ class rpg(commands.Cog):
     @commands.command(name="steal", brief="Steal other people", aliases=["st"])
     async def steal(self, ctx, user_id):
         user = int(id_convert(user_id))
+        if ctx.author.id == user:
+            return await ctx.send("You can't steal yourself lmao")
         list_lines = []
         stole_c = 0
         steal_c = 0
