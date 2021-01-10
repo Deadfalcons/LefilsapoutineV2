@@ -118,7 +118,7 @@ class rpg(commands.Cog):
                        ["You stole a very good portion!\nYou won ", int(bal * 0.3)],
                        ["You stole an ENORMOUS portion!\nYou won ", int(bal * 0.5)]]
         answer = int(choice([x for x in range(5)], 1, p=[0.09, 0.2, 0.5, 0.2, 0.01]))
-        is_stole = self.modify_money(user, answer_list[answer][1], gotozero=True)
+        is_stole = self.modify_money(user, -answer_list[answer][1], gotozero=True)
         if is_stole:
             self.modify_money(ctx.author.id, answer_list[answer][1], gotozero=True)
         await ctx.send(f"{answer_list[answer][0]}{answer_list[answer][1]}$")
