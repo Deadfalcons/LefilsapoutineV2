@@ -95,7 +95,7 @@ class rpg(commands.Cog):
             for line in file:
                 try :
                     if line.split(",")[0] == str(ctx.author.id):
-                        if int(line.split(",")[1]) > int(time.time()) - 600:
+                        if int(line.split(",")[1]) > int(time.time()) - 300:
                             return await ctx.send("Wowowo cool man, you already stole someone in the past 5 minutes")
                         stole_c = line.split(",")[2]
                     elif line.split(",")[0] == str(user):
