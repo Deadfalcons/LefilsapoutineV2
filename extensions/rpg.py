@@ -148,6 +148,12 @@ class rpg(commands.Cog):
         e.set_footer(text="Made by </Deadfalcon>")
         await ctx.send(embed=e)
 
+    @commands.command(name="give", brief="Give money to someone")
+    @commands.is_owner()
+    async def give(self, ctx, user_id, value):
+        self.modify_money(int(user_id), int(value))
+        await ctx.send(f"Task done !")
+
 
 def setup(client):
     if not os.path.isdir(path):
