@@ -110,15 +110,15 @@ class rpg(commands.Cog):
         list_lines.append(f"{user},{steal_c},{int(time.time())}\n")
         with open(path + "steal_cooldown.csv", "w") as file:
             file.write("".join(list_lines))
-        self.search_balance(ctx.author.id)
+        bal_ = self.search_balance(ctx.author.id)
         bal = self.search_balance(user)
-        answer_list = [["It's a trap!\nYou won ", int(bal * -0.1)],
+        answer_list = [["It's a trap!\nYou won ", int(bal_ * -0.1)],
                        ["You stole a little portion...\nYou won ", int(bal * 0.1)],
                        ["You stole a good portion!\nYou won ", int(bal * 0.2)],
                        ["You stole a very good portion!\nYou won ", int(bal * 0.3)],
                        ["You stole an ENORMOUS portion!\nYou won ", int(bal * 0.5)]]
         answer = int(choice([x for x in range(5)], 1, p=[0.09, 0.2, 0.5, 0.2, 0.01]))
-        is_stole = self.modify_money(user, -answer_list[answer][1], gotozero=True)
+        is_stole = self.modify_money(user, -answer_list[answer][1])
         if is_stole:
             self.modify_money(ctx.author.id, answer_list[answer][1], gotozero=True)
         await ctx.send(f"{answer_list[answer][0]}{answer_list[answer][1]}$")
